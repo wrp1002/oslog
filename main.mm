@@ -130,24 +130,7 @@ BOOL handleStreamEntry(os_activity_stream_entry_t entry, int error){
 
 			 
 			if (messageText){
-				
-				char *subsystem=NULL;
-				char *category=NULL;
-				
-				if (log_message->subsystem && strlen(log_message->subsystem) > 0){
-					subsystem=(char *)log_message->subsystem;
-				}
-				if (log_message->category && strlen(log_message->category) > 0){
-					category=(char *)log_message->category;
-				}
-
-				if(category && subsystemInfo){
-					printf("%s %s ""\033[1;36m""%s(%s.%s)""\033[1;37m""[%d]%s: %s\x1b[0m\n",hostname,timebuffer,(char *)procname,subsystem,category,entry->pid,levelInfo?level:"",messageText);
-				}
-				else{
-					printf("%s %s ""\033[1;36m""%s""\033[1;37m""[%d]%s: %s\x1b[0m\n",hostname,timebuffer,(char *)procname,entry->pid,levelInfo?level:"",messageText);
-				}
-				
+				printf("%s %s ""\033[1;36m""%s""\033[1;37m""[%d]%s: %s\x1b[0m\n",hostname,timebuffer,(char *)procname,entry->pid,levelInfo?level:"",messageText);
 			}
 		
 		  }
