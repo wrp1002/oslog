@@ -5,6 +5,7 @@ this is a fork of the original project created by limneos, in this version I’v
  2. Updated the entitlements to support a wider range API’s
  3. Updated the project’s build hierarchy to be compatible with modern versions of Theos + very minor adjustments to the code to improve all around usability (date view, usage, etc.)
  4. Removed `log_message->category` as it's uninitialized since iOS 14.5 and will segfault
+ 5. Removed `log_message->format` as it's uninitialized since iOS 15 and will segfault
 
 ## Example output:
 ![](assets/IMG_1.png)
