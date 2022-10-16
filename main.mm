@@ -104,28 +104,28 @@ BOOL handleStreamEntry(os_activity_stream_entry_t entry, int error){
 			const char * level=NULL;
 			switch (logLevel){
 				case 0x00:
-					level=" <Notice>";
+					level="<Notice> ";
 					break;
 				case 0x01:
-					level=" <Info>";
+					level="<Info>   ";
 					break;
 				case 0x2:
-					level=" <Debug>";
+					level="<Debug>  ";
 					break;
 				case 0x10:
-					level=" <Error>";
+					level="\033[1;33m<Error>\033[0m  ";
 					break;
 				case 0x11:
 					break;
-					level=" <Fault>";
+					level="\033[1;31m<Fault>\033[0m  ";
 				default:
-					level=" <Unknown>";
+					level="<Unknown>";
 					break;
 			}
 
 			 
 			if (messageText){
-				printf("%s %s ""\033[1;36m""%s""\033[1;37m""[%d]%s: %s\x1b[0m\n",hostname,timebuffer,(char *)procname,entry->pid,levelInfo?level:"",messageText);
+				printf("%s%s ""\033[1;36m""%s""\033[1;37m""[%d]\033[0m: %s\n", levelInfo ? level : "", timebuffer, (char *)procname, entry->pid, messageText);
 			}
 		
 		  }
