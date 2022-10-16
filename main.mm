@@ -8,7 +8,6 @@
 static BOOL canPrint=NO;
 static int filterPid=-1;
 static BOOL levelInfo=YES;
-static BOOL subsystemInfo=YES;
 static int (*m_proc_name)(int pid,char *buffer, unsigned int size);
 static os_activity_stream_for_pid_t s_os_activity_stream_for_pid;
 static os_activity_stream_resume_t s_os_activity_stream_resume;
@@ -20,7 +19,7 @@ static int (*m_proc_listpids)(uint32_t type, uint32_t typeinfo, void *buffer, in
 
 
 void printUsage(){
-	printf("\033[1;36mUsage: \033[1;37moslog [--info|--debug] [-p <pid|name>] [--noLevelInfo] [--noSubsystemInfo]\x1b[0m\n");
+	printf("\033[1;36mUsage: \033[1;37moslog [--info|--debug] [-p <pid|name>] [--noLevelInfo]\x1b[0m\n");
 }
 
 
@@ -100,10 +99,6 @@ BOOL handleStreamEntry(os_activity_stream_entry_t entry, int error){
 			
 			// get log message text
 			char *messageText=s_os_log_copy_formatted_message(log_message);
-			
-			if (entry->log_message.format && !(strcmp(entry->log_message.format,messageText))){
-				messageText=(char *)entry->log_message.format;
-			}
 			
 			uint8_t logLevel=m_os_log_get_type(log_message);
 			const char * level=NULL;
@@ -221,12 +216,6 @@ int main(int argc, char **argv, char **envp) {
 			levelInfo=NO;
 			[argumentsToUse removeObject:arg];
 		}
-		
-		if ([arg isEqual:@"--noSubsystemInfo"]){
-			subsystemInfo=NO;
-			[argumentsToUse removeObject:arg];
-		}
-		
 		
 			
 		if ([arg isEqual:@"-p"]){
